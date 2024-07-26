@@ -1,9 +1,24 @@
+'use client';
+
 import { CarCard, CustomFilter, Hero, SearchBar, ShowMore } from '@/components';
 import { fuels, yearsOfProduction } from '@/constants';
 import { HomeProps } from '@/types';
 import { fetchCars } from '@/utils';
+import Lenis from 'lenis';
+import { useEffect } from 'react';
 
 export default async function Home({ searchParams }: HomeProps) {
+    useEffect(() => {
+        const lenis = new Lenis();
+
+        function raf(time: number) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+    }, []);
+
     const allCars = await fetchCars({
         manufacturer: searchParams.manufacturer || '',
         year: searchParams.year || 2022,
